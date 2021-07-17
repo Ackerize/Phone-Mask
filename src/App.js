@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [phone, setPhone] = useState("");
+
+  const onChange = ({ target }) => {
+    const str = target.value;
+    if (str.length > 4) {
+      const left = str.substr(0, 4);
+      let right = str.substr(4, 5);
+      right = right.indexOf("-") == -1 ? `-${right}` : right;
+      setPhone(`${left}${right}`);
+    } else {
+      setPhone(str);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input name="phone" onChange={onChange} value={phone} />
     </div>
   );
 }
